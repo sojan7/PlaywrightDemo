@@ -58,5 +58,8 @@ for (const { name, config } of devicesToTest) {
     await expect(page.locator('[data-test="back-to-products"]')).toBeVisible();
     await page.locator('[data-test="back-to-products"]').click();
     await expect(page.getByText("Swag Labs")).toBeVisible();
+    await page.getByRole("button", { name: "Open Menu" }).click();
+    await page.locator('[data-test="logout-sidebar-link"]').click();
+    await expect(page.locator('[data-test="login-button"]')).toBeVisible();
   });
 }
