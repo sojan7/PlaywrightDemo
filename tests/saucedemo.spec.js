@@ -9,6 +9,7 @@ const devicesToTest = [
 for (const { name, config } of devicesToTest) {
   test.use({
     ...config,
+    video: "on",
   });
 
   test(`Verify Sauce Demo Checkout Process on ${name}`, async ({ page }) => {
