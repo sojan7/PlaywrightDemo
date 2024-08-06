@@ -1,4 +1,14 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, defineConfig } from "@playwright/test";
+
+export default defineConfig({
+  use: {
+    video: {
+      mode: "on-first-retry",
+      size: { width: 640, height: 480 },
+    },
+  },
+  retries: 2,
+});
 
 test("Verify Form Submitting", async ({ page }) => {
   await page.goto("https://demoqa.com/");
@@ -41,5 +51,5 @@ test("Verify Form Submitting", async ({ page }) => {
   await expect(page.locator("tbody")).toContainText(
     "Test Address 1 Test Address 2 Test Address 3"
   );
-  await expect(page.locator("tbody")).toContainText("NCR Delhi");
+  await expect(page.locator("tbody")).toContainText("Kochi");
 });

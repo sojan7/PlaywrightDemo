@@ -1,5 +1,7 @@
 import { test, expect, devices } from "@playwright/test";
 
+test.describe.configure({ mode: "parallel" });
+
 const devicesToTest = [
   { name: "iPhone 14", config: devices["iPhone 14"] },
   { name: "Samsung Galaxy S23", config: devices["Galaxy S23"] },

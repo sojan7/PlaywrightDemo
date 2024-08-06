@@ -1,6 +1,8 @@
 // @ts-check
 import { test, expect } from "@playwright/test";
 
+test.describe.configure({ mode: "parallel" });
+
 test("Verify is the title is correct", async ({ page }) => {
   await page.goto("https://playwright.dev/");
 
