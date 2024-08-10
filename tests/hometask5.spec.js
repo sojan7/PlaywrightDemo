@@ -1,41 +1,45 @@
-const { test, expect } = require("@playwright/test");
-const LoginPage = require("../pages/LoginPage");
-const ManagerHomePage = require("../pages/ManagerHomePage");
-const CustomersPage = require("../pages/CustomersPage");
-const customerData = require("../fixtures/customerData.json");
+import { test, expect } from "@playwright/test";
+import LoginPage from "../pages/LoginPage";
+import ManagerHomePage from "../pages/ManagerHomePage";
+import CustomersPage from "../pages/CustomersPage";
+import { customer as _customer } from "../fixtures/customerData.json";
 
 test.describe("Banking Project Tests", () => {
-  test("Verify customer add, account add and customer verification.", async ({
-    page,
-  }) => {
-    const loginPage = new LoginPage(page);
-    const managerHomePage = new ManagerHomePage(page);
-    const customerPage = new CustomersPage(page);
-    const customer = customerData.customer;
+  let loginPage;
+  let managerHomePage;
+  let customerPage;
+  const customer = _customer;
 
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    managerHomePage = new ManagerHomePage(page);
+    customerPage = new CustomersPage(page);
     await loginPage.navigate();
     await loginPage.clickManagerLogin();
+  });
 
+  test("Verify customer add, account add, and customer verification", async () => {
+    // Add customer
     await managerHomePage.addCustomer(
       customer.firstName,
       customer.lastName,
       customer.postcode
     );
+
+    // Open account for the customer
     await managerHomePage.openAccount(
       `${customer.firstName} ${customer.lastName}`,
       "Dollar"
     );
-    await loginPage.navigate();
-    await loginPage.clickManagerLogin();
 
+    // Go to Customers page and verify customer
     await managerHomePage.goToCustomersPage();
-
     await customerPage.searchCustomerByName(customer.firstName);
-
     const customerExists = await customerPage.validateCustomerExists(
       customer.firstName,
       customer.lastName
     );
+
     expect(customerExists).toBe(true);
   });
 });
