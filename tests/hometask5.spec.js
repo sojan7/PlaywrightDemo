@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import LoginPage from "../pages/LoginPage";
-import ManagerHomePage from "../pages/ManagerHomePage";
-import CustomersPage from "../pages/CustomersPage";
+import LoginPage from "./pages/LoginPage";
+import ManagerHomePage from "./pages/ManagerHomePage";
+import CustomersPage from "./pages/CustomersPage";
 import { customer as _customer } from "../fixtures/customerData.json";
 
 test.describe("Banking Project Tests", () => {
