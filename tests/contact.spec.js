@@ -51,5 +51,5 @@ test("Verify Form Submitting", async ({ page }) => {
   await expect(page.locator("tbody")).toContainText(
     "Test Address 1 Test Address 2 Test Address 3"
   );
-  await expect(page.locator("tbody")).toContainText("Kochi");
+  await expect(page.locator("tbody")).toContainText("Delhi");
 });
