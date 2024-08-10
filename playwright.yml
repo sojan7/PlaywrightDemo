@@ -10,7 +10,7 @@ playwrighttests:
     - npm ci
     - npm install -D @playwright/test
     - npx playwright install
-    - npx playwright test
+    - npx playwright test --workers=4
   artifacts:
     paths:
       - ./playwright-report/
