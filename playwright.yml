@@ -1,18 +1,18 @@
 stages:
   - build
   - deploy
-  - test #test suite automation run stage
+  - test
 
 playwrighttests:
   stage: test
-  image: mcr.microsoft.com/playwright:latest #official playwright image
+  image: mcr.microsoft.com/playwright:latest
   script:
-    - npm install ci
-    - npm install -D @playwright/test
     - npm ci
+    - npm install -D @playwright/test
+    - npx playwright install
     - npx playwright test
   artifacts:
-    paths: #assuming deafult playwright artifacts paths
+    paths:
       - ./playwright-report/
       - ./Screenshot/
       - test-results/
@@ -20,4 +20,4 @@ playwrighttests:
     when: always
     expire_in: 4 days
     reports:
-      junit: results.xml #artifacts will purged after 4 days of test run
+      junit: results.xml
