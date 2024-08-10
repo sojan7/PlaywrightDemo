@@ -1,7 +1,6 @@
 const { test, expect } = require("@playwright/test");
-const LoginPage = require("../pages/loginpage");
-const HomePage = require("../pages/homepage");
-const ManagerPage = require("../pages/ManagerPage");
+const LoginPage = require("../pages/LoginPage");
+const ManagerHomePage = require("../pages/ManagerHomePage");
 const CustomersPage = require("../pages/CustomersPage");
 const customerData = require("../fixtures/customerData.json");
 
@@ -10,26 +9,26 @@ test.describe("Banking Project Tests", () => {
     page,
   }) => {
     const loginPage = new LoginPage(page);
-    const managerPage = new ManagerPage(page);
+    const managerHomePage = new ManagerHomePage(page);
     const customerPage = new CustomersPage(page);
     const customer = customerData.customer;
 
     await loginPage.navigate();
     await loginPage.clickManagerLogin();
 
-    await managerPage.addCustomer(
+    await managerHomePage.addCustomer(
       customer.firstName,
       customer.lastName,
       customer.postcode
     );
-    await managerPage.openAccount(
+    await managerHomePage.openAccount(
       `${customer.firstName} ${customer.lastName}`,
       "Dollar"
     );
     await loginPage.navigate();
     await loginPage.clickManagerLogin();
 
-    await managerPage.goToCustomersPage();
+    await managerHomePage.goToCustomersPage();
 
     await customerPage.searchCustomerByName(customer.firstName);
 
@@ -38,6 +37,5 @@ test.describe("Banking Project Tests", () => {
       customer.lastName
     );
     expect(customerExists).toBe(true);
-    await page.waitForTimeout(10000);
   });
 });
